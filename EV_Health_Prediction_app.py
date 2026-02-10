@@ -1,9 +1,15 @@
 import streamlit as st
 import pandas as pd
+import os
 import pickle
 
 # Load trained model
-model = pickle.load(open("ev_model.pkl", "rb"))
+ Load trained EV model
+BASE_DIR = os.path.dirname(os.path.abspath(_file_))
+MODEL_PATH = os.path.join(BASE_DIR, "ev_model.pkl")
+
+with open(MODEL_PATH, "rb") as f:
+    model = pickle.load(f)
 
 st.title("🚗 Smart EV Health Prediction System")
 
@@ -52,4 +58,5 @@ if st.button("Predict EV Health"):
         st.warning("MEDIUM Risk")
     else:
         st.error("HIGH Risk")
+
 
