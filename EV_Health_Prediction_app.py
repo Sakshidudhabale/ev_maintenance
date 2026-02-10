@@ -23,6 +23,9 @@ battery_num = battery_map[battery_status]
 # Predict
 # -------------------------------
 if st.button("Predict EV Health"):
+    st.write("DEBUG mileage:", mileage)
+    st.write("DEBUG battery:", battery_status)
+
     input_df = pd.DataFrame([[mileage, battery_num]], columns=['Mileage','Battery_Status_Num'])
 
     # Maintenance Prediction
@@ -63,6 +66,7 @@ if st.button("Predict EV Health"):
         st.warning("MEDIUM Risk")
     else:
         st.error("HIGH Risk")
+
 
 
 
