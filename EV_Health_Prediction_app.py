@@ -29,12 +29,18 @@ if st.button("Predict EV Health"):
     pred = model.predict(input_df)[0]
     prob = model.predict_proba(input_df)[0][1]  # Probability of Maintenance Needed
 
+    # 🔴 MANUAL MILEAGE RULE (IMPORTANT)
     st.subheader("🔧 Maintenance Prediction")
-    if pred == 1:
+
+    if mileage < 30000 and battery_status == "New":
+        st.success("Maintenance Not Needed")
+    elif mileage >= 70000:
+        st.error("Maintenance Needed (High Mileage)")
+    elif pred == 1:
         st.error("Maintenance Needed")
     else:
         st.success("Maintenance Not Needed")
-
+    
     # Battery Prediction
     st.subheader("🔋 Battery Prediction")
     if battery_status == "New":
@@ -46,9 +52,14 @@ if st.button("Predict EV Health"):
 
     # Failure Risk Prediction
     st.subheader("🚨 Failure Risk")
-    if prob < 0.3:
+
+    if mileage < 30000 and battery_status == "New":
         st.success("LOW Risk")
-    elif prob < 0.6:
+    elif mileage >= 90000:
+        st.error("HIGH Risk")
+    elif prob < 0.4:
+        st.success("LOW Risk")
+    elif prob < 0.7:
         st.warning("MEDIUM Risk")
     else:
         st.error("HIGH Risk")
