@@ -34,8 +34,10 @@ if st.button("Predict EV Health"):
 
     # 🔴 MANUAL MILEAGE RULE (IMPORTANT)
     st.subheader("🔧 Maintenance Prediction")
-
-    if mileage < 30000 and battery_status == "New":
+    st.write("DEBUG mileage:", mileage)
+    st.write("DEBUG battery:", battery_status)
+    
+    if mileage <= 30000 and battery_status == "New":
         st.success("Maintenance Not Needed")
     elif mileage >= 70000:
         st.error("Maintenance Needed (High Mileage)")
@@ -44,19 +46,8 @@ if st.button("Predict EV Health"):
     else:
         st.success("Maintenance Not Needed")
     
-    # Battery Prediction
-    st.subheader("🔋 Battery Prediction")
-    if battery_status == "New":
-        st.success("Battery OK")
-    elif battery_status == "Weak":
-        st.warning("Battery Weak")
-    else:
-        st.error("Battery Critical / Replace Soon")
-
-    # Failure Risk Prediction
     st.subheader("🚨 Failure Risk")
-
-    if mileage < 30000 and battery_status == "New":
+    if mileage <= 30000 and battery_status == "New":
         st.success("LOW Risk")
     elif mileage >= 90000:
         st.error("HIGH Risk")
@@ -67,7 +58,16 @@ if st.button("Predict EV Health"):
     else:
         st.error("HIGH Risk")
 
+    # Battery Prediction
+    st.subheader("🔋 Battery Prediction")
+    if battery_status == "New":
+        st.success("Battery OK")
+    elif battery_status == "Weak":
+        st.warning("Battery Weak")
+    else:
+        st.error("Battery Critical / Replace Soon")
 
+   
 
 
 
